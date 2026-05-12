@@ -17,4 +17,10 @@ public class UserEntity extends BaseEntity {
     private String username;
 
     private String password;
+
+    @Override
+    public String toString() {
+        return  "; name: " + username +
+                "; password: " + password;
+    }
 }
