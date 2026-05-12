@@ -23,7 +23,7 @@ public class PersonValidator implements Validator {     // здесь реали
         UserEntity user = (UserEntity) target;  // переданное значение приводим к типу UserEntity
         try {
             personDetailsService.loadUserByUsername(user.getUsername());    // проверка из сервиса
-        } catch (UsernameNotFoundException) {
+        } catch (UsernameNotFoundException ignored) {
             return;
         }
 
