@@ -13,6 +13,10 @@ import java.util.List;
 public class PersonDetails implements UserDetails {
     private final UserEntity user;
 
+    public UserEntity getUser() {
+        return this.user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
