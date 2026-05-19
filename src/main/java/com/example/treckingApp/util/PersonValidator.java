@@ -14,7 +14,7 @@ public class PersonValidator implements Validator {     // здесь реали
     }
 
     @Override
-    public boolean supports(Class<?> clazz) {   // должен указывать на то, что валидатор требуется для бъектов класса UserEntity. Соответственно его и возвращаем
+    public boolean supports(Class<?> clazz) {   // должен указывать на то, что валидатор требуется для объектов класса UserEntity. Соответственно его и возвращаем
         return UserEntity.class.equals(clazz);
     }
 
