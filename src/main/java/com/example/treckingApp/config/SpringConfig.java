@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,10 +19,13 @@ public class SpringConfig {
     @Bean   // Используется когда метод, например, возвращает класс из библиотеки
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
-                        .anyRequest().authenticated()
+                        .requestMatchers("/auth/login", "/auth/registration").permitAll()
                 )
-                .formLogin(form -> form
+                        .formLogin(AbstractHttpConfigurer::disable)
+                        .logout(AbstractHttpConfigurer::disable);
+
 
 
         return http.build();
