@@ -66,7 +66,7 @@ public class AppController {
     }
 
     @PostMapping("/login")
-    public Map<String, String> loginPage(@RequestBody AuthDTO authDTO) {
+    public Map<String, String> loginPage(@RequestBody AuthDTO authDTO) {     // для обновления токена
         UsernamePasswordAuthenticationToken authInputToken =
                 new UsernamePasswordAuthenticationToken(authDTO.getUsername(),
                         authDTO.getPassword());     // Далее создаём токен для аутентификации из полученных данных
@@ -75,6 +75,8 @@ public class AppController {
         } catch (BadCredentialsException e) {
             return Map.of("message", "Incorrect credentials");
         }
+        String token = jwtUtil.generateToken(authDTO.getUsername());
+        return Map.of("jwt-token", token);
 
     }
 }
