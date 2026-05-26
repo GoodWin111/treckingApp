@@ -41,6 +41,8 @@ public class SpringConfig {
                         .formLogin(AbstractHttpConfigurer::disable)     // форма не используется
                         .logout(AbstractHttpConfigurer::disable);
 
+
+
         return http.build();
     }
 
