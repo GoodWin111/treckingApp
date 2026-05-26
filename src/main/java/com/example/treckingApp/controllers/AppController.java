@@ -59,24 +59,29 @@ public class AppController {
 
         if (bindingResult.hasErrors()) return Map.of("message", "Ошибка регистрации");
 
-        registrationService.register(userEntity);
-
-        String token = jwtUtil.generateToken(userEntity.getUsername());
-        return Map.of("jwt-token", token);
+        return registrationService.register(userEntity);
     }
 
     @PostMapping("/login")
     public Map<String, String> loginPage(@RequestBody AuthDTO authDTO) {     // для обновления токена
         UsernamePasswordAuthenticationToken authInputToken =
-                new UsernamePasswordAuthenticationToken(authDTO.getUsername(),
-                        authDTO.getPassword());     // Далее создаём токен для аутентификации из полученных данных
+                new UsernamePasswordAuthenticationToken(authDTO.getUsername(), authDTO.getPassword());     // Далее создаём токен для аутентификации из полученных данных
         try {   // проверка логина и пароля через БД (Spring делает это сам)
             authenticationManager.authenticate(authInputToken);
         } catch (BadCredentialsException e) {
             return Map.of("message", "Incorrect credentials");
         }
-        String token = jwtUtil.generateToken(authDTO.getUsername());
-        return Map.of("jwt-token", token);
 
+        return registrationService.authenticate(authDTO.getUsername());
+
+    }
+
+    @PostMapping("/refresh")
+    public Map<String, String> refresh(@RequestBody Map<String, String> body) {
+        String refreshToken = body.get("refreshToken");
+
+        if (refreshToken == null) return Map.of("message", "Missing refresh token");
+
+        return registrationService.refreshToken(refreshToken);
     }
 }

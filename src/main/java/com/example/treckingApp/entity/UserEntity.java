@@ -9,6 +9,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Setter
 @Getter
 @Entity
@@ -23,6 +25,12 @@ public class UserEntity extends BaseEntity {
     private int yearOfBirth;
 
     private String password;
+
+    @Column(name = "refresh-token")
+    private String refreshToken;
+
+    @Column(name = "refresh_token_expiration")
+    private LocalDateTime refreshTokenExpiration;
 
     @Override
     public String toString() {

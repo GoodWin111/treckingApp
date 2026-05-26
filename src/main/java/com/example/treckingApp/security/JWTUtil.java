@@ -15,8 +15,25 @@ public class JWTUtil {
     @Value("${jwt_secret}")
     private String secret;
 
+    private SecretKey getSigningKey() {
+        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));    // шифруем секрет
+    }
+
+    public String generateRefreshToken(String username) {
+
+        Date expirationDate = (Date) Date.from(ZonedDateTime.now().plusDays(60).toInstant());    // срок жизни токена
+        return Jwts.builder()
+                .subject(username)  // для кого
+                .claim("username", username)    // что хранить в токене
+                .issuedAt(new Date())   // текущая дата
+                .expiration(expirationDate)
+                .signWith(getSigningKey())
+                .compact();
+
+        // .issuer()    кто выдал токен
+    }
+
     public String generateToken(String username) {
-        SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));    // шифруем секрет
 
         Date expirationDate = (Date) Date.from(ZonedDateTime.now().plusMinutes(60).toInstant());    // срок жизни токена
         return Jwts.builder()
@@ -24,7 +41,7 @@ public class JWTUtil {
                 .claim("username", username)    // что хранить в токене
                 .issuedAt(new Date())   // текущая дата
                 .expiration(expirationDate)
-                .signWith(key)
+                .signWith(getSigningKey())
                 .compact();     // сборка в строку
 
         // .issuer()    кто выдал токен
