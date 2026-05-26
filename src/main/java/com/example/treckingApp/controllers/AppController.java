@@ -18,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/app")
-public class AuthController {
+public class AppController {
     private final PersonValidator personValidator;
     private final RegistrationService registrationService;
 
@@ -27,7 +27,7 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthController(PersonValidator personValidator, RegistrationService registrationService, JWTUtil jwtUtil, ModelMapper modelMapper, AuthenticationManager authenticationManager) {
+    public AppController(PersonValidator personValidator, RegistrationService registrationService, JWTUtil jwtUtil, ModelMapper modelMapper, AuthenticationManager authenticationManager) {
         this.personValidator = personValidator;
         this.registrationService = registrationService;
         this.jwtUtil = jwtUtil;
