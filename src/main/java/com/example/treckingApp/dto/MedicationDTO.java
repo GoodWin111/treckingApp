@@ -8,11 +8,10 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-
 @Getter
 @Setter
 public class MedicationDTO {
+    @NotEmpty
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
@@ -25,7 +24,9 @@ public class MedicationDTO {
     @Size(max = 100)
     private String name;
 
+    @NotEmpty
     private int totalDays;
+
+    @NotEmpty
     private int timesPerDay;
-    private ArrayList<String> timeIntake;
 }

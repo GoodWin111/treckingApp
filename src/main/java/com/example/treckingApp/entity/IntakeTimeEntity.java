@@ -1,6 +1,9 @@
 package com.example.treckingApp.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -9,23 +12,20 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
-@Setter
 @Getter
+@Setter
 @Entity
-@Table(name = "missed_intakes")
-public class MissedIntakeEntity extends BaseEntity {
+@Table(name = "intakes_time")
+public class IntakeTimeEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "medication_id")
     private MedicationEntity medication;
 
     @NotEmpty
-    private int numberDay;
-
-    @NotEmpty
     @Min(value = 1)
     private Integer numberOfIntake;
 
+    @NotEmpty
     @CreationTimestamp
-    @Column(name = "dateTime", updatable = false)
-    private LocalDateTime MissedIntakeDateTime;
+    private LocalDateTime IntakeDateTime;
 }

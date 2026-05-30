@@ -24,9 +24,11 @@ public class UserEntity extends BaseEntity {
     @Column(name = "year_of_birth")
     private int yearOfBirth;
 
+    @NotEmpty
+    @Size(min = 8, max = 200)
     private String password;
 
-    @Column(name = "refresh-token")
+    @Column(name = "refresh_token")
     private String refreshToken;
 
     @Column(name = "refresh_token_expiration")

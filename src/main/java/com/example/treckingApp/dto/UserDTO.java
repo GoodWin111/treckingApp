@@ -14,9 +14,11 @@ public class UserDTO {
     @Size(min = 2, max = 100)
     private String username;
 
+    @NotEmpty
     @Min(value = 1900)
     @Column(name = "year_of_birth")
     private int yearOfBirth;
 
+    @NotEmpty
     private String password;
 }

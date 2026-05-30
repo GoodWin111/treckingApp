@@ -11,5 +11,8 @@ public class AuthDTO {      // в этом DTO будут посылаться �
     @NotEmpty
     @Size(min = 2, max = 100)
     private String username;
+
+    @NotEmpty
+    @Size(min = 8, max = 30)
     private String password;
 }
