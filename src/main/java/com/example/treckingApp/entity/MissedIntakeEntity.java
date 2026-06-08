@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Setter
 @Getter
@@ -18,14 +19,10 @@ public class MissedIntakeEntity extends BaseEntity {
     @JoinColumn(name = "medication_id")
     private MedicationEntity medication;
 
-    @NotEmpty
     private int numberDay;
 
-    @NotEmpty
     @Min(value = 1)
-    private Integer numberOfIntake;
+    private Integer numberOfMissedIntake;
 
-    @CreationTimestamp
-    @Column(name = "dateTime", updatable = false)
-    private LocalDateTime MissedIntakeDateTime;
+    private LocalTime missedIntakeTime;
 }

@@ -24,4 +24,12 @@ public class PersonDetailsService implements UserDetailsService {
         }
         return new PersonDetails(user.get());
     }
+
+    public UserEntity findByUsername(String username) {
+        Optional<UserEntity> user = userRepository.findByUsername(username);
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User not found!");
+        }
+        return user.get();
+    }
 }

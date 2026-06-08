@@ -35,7 +35,7 @@ public class SpringConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))     // для работы с jwt сессии не нужны
 
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/auth/login", "/auth/registration", "/auth/refresh").permitAll()
+                        .requestMatchers("/auth/login", "/auth/registration", "/auth/refresh", "/app/addMedication").permitAll()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)     // добавляем jwt-фильтр перед стандартным фильтром логина, иначе он не будет работать
                         .formLogin(AbstractHttpConfigurer::disable)     // форма не используется

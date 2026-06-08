@@ -4,13 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.LocalTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -19,20 +20,17 @@ import java.util.ArrayList;
 public class MedicationEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @NotEmpty
     private UserEntity user;
 
     @Size(max = 100)
-    @NotBlank(message = "поле 'тип' не заполнено")
     private String type;
 
     @Size(max = 100)
-    @NotNull(message = "поле 'название' не заполнено")
     private String name;
 
-    @Min(value = 1, message = "некорректное количество дней")
+    @Min(value = 1)
     private int totalDays;
 
-    @Min(value = 1, message = "некорректное количество приемов в день")
+    @Min(value = 1)
     private int timesPerDay;
 }
