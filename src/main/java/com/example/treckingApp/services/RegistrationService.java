@@ -65,7 +65,7 @@ public class RegistrationService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         String accessToken = jwtUtil.generateToken(username);
-        String refreshToken = jwtUtil.generateToken(username);
+        String refreshToken = jwtUtil.generateRefreshToken(username);
 
         user.setRefreshToken(refreshToken);
         user.setRefreshTokenExpiration(LocalDateTime.now().plusDays(60));

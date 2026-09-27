@@ -21,16 +21,12 @@ import java.util.Map;
 public class AuthController {
     private final PersonValidator personValidator;
     private final RegistrationService registrationService;
-
-    private final JWTUtil jwtUtil;
     private final ModelMapper modelMapper;
-
     private final AuthenticationManager authenticationManager;
 
     public AuthController(PersonValidator personValidator, RegistrationService registrationService, JWTUtil jwtUtil, ModelMapper modelMapper, AuthenticationManager authenticationManager) {
         this.personValidator = personValidator;
         this.registrationService = registrationService;
-        this.jwtUtil = jwtUtil;
         this.modelMapper = modelMapper;
         this.authenticationManager = authenticationManager;
     }
@@ -51,7 +47,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Map<String, String> loginPage(@RequestBody AuthDTO authDTO) {     // для обновления токена
+    public Map<String, String> loginPage(@RequestBody @Valid AuthDTO authDTO) {
         UsernamePasswordAuthenticationToken authInputToken =
                 new UsernamePasswordAuthenticationToken(authDTO.getUsername(), authDTO.getPassword());     // Далее создаём токен для аутентификации из полученных данных
         try {   // проверка логина и пароля через БД (Spring делает это сам)
